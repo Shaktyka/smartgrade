@@ -1,37 +1,43 @@
 # Описание сущностей базы данных
 
-## Темы (themes)
+## Темы (theme)
 
-## Категории (categories)
+## Категории (category)
 
-## Группы статусов (state_groups)
+## Группы статусов (state_group)
 
-## Статусы (states)
+## Статусы (state)
 
-## Пользователи (users)
+## Пользователи (user)
 
-## Професссии (professions)
+## Професссии (profession)
 
-## Роли (roles)
+## Роли (role)
 
-## Грейды (grades)
+## Грейды (grade)
 
-## Типы вопросов (question_types)
+## Типы вопросов (question_type)
 
-## Тесты (tests)
+## Тесты (test)
 
-## Вопросы (questions)
+## Вопросы (question)
 
-## Варианты (variants)
+## Варианты (variant)
 
-## Правильные варианты (right_variants)
+## Правильные варианты (right_variant)
 
-## Попытки (attempts)
+## Попытки (attempt)
 
-## Ответы на вопросы тестов (attempts_answers)
+## Ответы на вопросы тестов (attempt_answer)
 
-## Экзамены (exams)
+## Экзамены (exam)
 
-## Сессии (sessions)
+## Сессии (session)
+
+## Группа конфигураций (config_group)
+
+## Конфиг (config)
 
 ## Лог (log)
+
+## Изменение полей (log_fields)
