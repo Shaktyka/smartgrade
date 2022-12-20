@@ -77,18 +77,18 @@
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| last_name | text |  |  |
-| first_name | text | NOT NULL |  |
-| middle_name | text |  |  |
-| nick | text |  |  |
-| bdate | date |  |  |
-| email | text |  |  |
-| password_hash | text |  |  |
-| profession_fk | integer |  |  |
-| pdb_data | jsonb |  |  |
-| uuid_pdb | uuid |  |  |
-| pdb_hash | text |  |  |
-| contract_data | jsonb |  |  |
+| last_name | text |  | Фамилия |
+| first_name | text | NOT NULL | Имя |
+| middle_name | text |  | Отчество |
+| nick | text |  | Никнейм |
+| bdate | date |  | Дата рождения |
+| email | text |  | E-mail адрес |
+| password_hash | text |  | Хеш пароля |
+| profession_fk | integer |  | FK на запись в таблице `profession` |
+| pdb_data | jsonb |  | JSONB данных библиотеки PDB |
+| uuid_pdb | uuid |  | Общий UUID пользователя |
+| pdb_hash | text |  | Хэш данных библиотеки PDB |
+| contract_data | jsonb |  | Данные соцсетей для аутентификации |
 
 ## Професссии (profession)
 
@@ -160,7 +160,7 @@
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| category_fk | integer | NOT NULL |  |
+| category_fk | integer | NOT NULL | FK на запись в таблице category |
 | name | text | NOT NULL | Профессия |
 | description | text |  | Описание |
 | test_config | jsonb |  | Настройки теста |
@@ -229,13 +229,10 @@
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+| finished_at | timestamptz |  |  |
+| test_fk | integer | NOT NULL |  |
+| test_questions_amount | smallint | NOT NULL DEFAULT 10 |  |
+| right_answers_amount | smallint | NOT NULL DEFAULT 0 |  |
 
 ## Ответы на вопросы тестов (attempt_answer)
 
@@ -248,13 +245,10 @@
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+| attempt_fk | integer | NOT NULL |  |
+| question_fk | integer | NOT NULL |  |
+| user_answer | jsonb |  |  |
+| is_right | boolean | DEFAULT false |  |
 
 ## Экзамены (exam)
 
@@ -289,13 +283,13 @@
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+| exam_fk | integer | NOT NULL |  |
+| mentee_fk | integer | NOT NULL |  |
+| date_start | date | NOT NULL |  |
+| date_end | date | NOT NULL |  |
+| actual_result | smallint | NOT NULL DEFAULT 0 |  |
+| is_completed | boolean | NOT NULL DEFAULT false |  |
+| mentor_fk | integer |  |  |
 
 
 
