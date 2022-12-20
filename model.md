@@ -15,9 +15,9 @@
 | idispl | integer | | ID создателя записи |
 | theme | text | | Название темы |
 | image_id | jsonb | | ID файла изображения |
-| description | text | | Произвольное описание |
-| is_public | boolean | | Опубликована ли тема |
-| order_number | integer | | Порядковый номер при выводе на страницу |
+| description | text | | Описание |
+| is_public | boolean | | Опубликовано ли |
+| order_number | integer | | Порядковый № при выводе на страницу |
 
 ## Категории (category)
 
@@ -30,12 +30,12 @@
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| theme_fk | integer | NOT NULL |  |
-| category | text | NOT NULL |  |
-| description | text |  |  |
-| is_public | boolean |  |  |
-| order_number | integer |  |  |
-| image_id | jsonb |  |  |
+| theme_fk | integer | NOT NULL | FK на ID темы |
+| category | text | NOT NULL | Категория |
+| description | text |  | Описание |
+| is_public | boolean |  | Опубликовано ли |
+| order_number | integer |  | Порядковый № при выводе на страницу |
+| image_id | jsonb |  | ID файла изображения |
 
 ## Группы статусов (state_group)
 
@@ -66,7 +66,9 @@
 | name | text | NOT NULL | Название статуса |
 | description | text |  | Описание |
 
-## Пользователи (user)
+## Пользователи (users)
+
+
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
@@ -75,15 +77,21 @@
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+| last_name | text |  |  |
+| first_name | text | NOT NULL |  |
+| middle_name | text |  |  |
+| nick | text |  |  |
+| bdate | date |  |  |
+| email | text |  |  |
+| password_hash | text |  |  |
+| profession_fk | integer |  |  |
+| pdb_data | jsonb |  |  |
+| uuid_pdb | uuid |  |  |
+| pdb_hash | text |  |  |
+| contract_data | jsonb |  |  |
 
 ## Професссии (profession)
+
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
