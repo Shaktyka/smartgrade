@@ -229,10 +229,10 @@
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| finished_at | timestamptz |  |  |
-| test_fk | integer | NOT NULL |  |
-| test_questions_amount | smallint | NOT NULL DEFAULT 10 |  |
-| right_answers_amount | smallint | NOT NULL DEFAULT 0 |  |
+| finished_at | timestamptz |  | Момент завершения теста |
+| test_fk | integer | NOT NULL | FK на запись в таблице `test` |
+| test_questions_amount | smallint | NOT NULL DEFAULT 10 | Кол-во вопросов в тесте |
+| right_answers_amount | smallint | NOT NULL DEFAULT 0 | Кол-во правильных ответов на вопросы |
 
 ## Ответы на вопросы тестов (attempt_answer)
 
@@ -245,10 +245,10 @@
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| attempt_fk | integer | NOT NULL |  |
-| question_fk | integer | NOT NULL |  |
-| user_answer | jsonb |  |  |
-| is_right | boolean | DEFAULT false |  |
+| attempt_fk | integer | NOT NULL | FK на запись в таблице `attempt` |
+| question_fk | integer | NOT NULL | FK на запись в таблице `question` |
+| user_answer | jsonb |  | Ответ пользователя |
+| is_right | boolean | DEFAULT false | Правильный ли ответ |
 
 ## Экзамены (exam)
 
@@ -283,13 +283,13 @@
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| exam_fk | integer | NOT NULL |  |
-| mentee_fk | integer | NOT NULL |  |
-| date_start | date | NOT NULL |  |
-| date_end | date | NOT NULL |  |
-| actual_result | smallint | NOT NULL DEFAULT 0 |  |
-| is_completed | boolean | NOT NULL DEFAULT false |  |
-| mentor_fk | integer |  |  |
+| exam_fk | integer | NOT NULL | FK на запись в таблице `exam` |
+| mentee_fk | integer | NOT NULL | FK на запись в таблице `users` (кто проходит сессию) |
+| date_start | date | NOT NULL | Дата начала сессии |
+| date_end | date | NOT NULL | Дата окончания сессии |
+| actual_result | smallint | NOT NULL DEFAULT 0 | Текущий результат пользователя |
+| is_completed | boolean | NOT NULL DEFAULT false | Выполнена ли сессия |
+| mentor_fk | integer |  | FK на запись в таблице `users` (наставник) |
 
 
 
