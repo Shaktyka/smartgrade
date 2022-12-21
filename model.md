@@ -19,7 +19,7 @@
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| theme | text | NOT NULL REFERENCES theme(idkart) | Название темы |
+| theme | text | NOT NULL UNIQUE | Название темы |
 | image_id | jsonb | NOT NULL | ID файла изображения |
 | description | text | | Описание |
 | is_public | boolean | | Опубликовано ли |
