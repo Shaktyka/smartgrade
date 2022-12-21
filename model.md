@@ -206,6 +206,7 @@
 | user_fk | int | NOT NULL | FK на запись в таблице `users` |
 | profession_fk | int | NOT NULL | Должность сотрудника |
 | work_email | text |  | Рабочий email |
+| email_signature | text |  | Подпись в email |
 | work_phone | text |  | Рабочий телефон |
 
 ## Тесты (test)
