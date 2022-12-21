@@ -2,6 +2,10 @@
 
 Ниже приведено описание таблиц базы данных.
 
+Общие принципы:
+
+- Почти в каждой таблице присутствуют служебные поля: idkart, dttmcr, dttmup, dttmcl, idispl. Они стандартные.
+
 ## Темы (theme)
 
 Справочник тем тестов. Крупные разделы, на которые могут быть разделены тесты. Название темы небольшое, описание - внутреннее поле, может быть довольно длинным. Для каждой темы задаётся небольшое изображение (иконка). Темы могут быть направлениями деятельности организации (для удобства).
@@ -10,13 +14,13 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| theme | text | | Название темы |
-| image_id | jsonb | | ID файла изображения |
+| theme | text | NOT NULL REFERENCES theme(idkart) | Название темы |
+| image_id | jsonb | NOT NULL | ID файла изображения |
 | description | text | | Описание |
 | is_public | boolean | | Опубликовано ли |
 | order_number | integer | | Порядковый № при выводе на страницу |
@@ -27,12 +31,12 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| theme_fk | integer | NOT NULL | FK на ID темы |
+| theme_fk | integer | NOT NULL REFERENCES theme(idkart) | FK на ID темы |
 | category | text | NOT NULL | Категория |
 | description | text |  | Описание |
 | is_public | boolean |  | Опубликовано ли |
@@ -46,8 +50,8 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
@@ -61,12 +65,12 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| state_group_fk | integer | NOT NULL | FK на ID группы статусов |
+| state_group_fk | integer | NOT NULL REFERENCES state_group(idkart) | FK на ID группы статусов |
 | name | text | NOT NULL | Название статуса |
 | description | text |  | Описание |
 
@@ -76,12 +80,12 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| name | text | NOT NULL | Профессия |
+| name | text | NOT NULL UNIQUE | Профессия |
 | description | text |  | Описание |
 
 ## Грейды (grade)
@@ -91,12 +95,12 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| name | text | NOT NULL | Название грейда |
+| name | text | NOT NULL UNIQUE | Название грейда |
 | description | text |  | Описание |
 
 ## Роли (role)
@@ -105,12 +109,12 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| name | text | NOT NULL | Название роли |
+| name | text | NOT NULL UNIQUE | Название роли |
 | description | text |  | Описание |
 
 ## Типы вопросов (question_type)
@@ -120,13 +124,13 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| code | text | NOT NULL | Код типа |
-| name | text | NOT NULL | Профессия |
+| code | text | NOT NULL UNIQUE | Код типа |
+| name | text | NOT NULL UNIQUE | Профессия |
 | description | text |  | Описание |
 | config | jsonb |  | Настройки для фронтенда |
 | is_public | boolean |  | Опубликовано ли |
@@ -138,8 +142,8 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
@@ -148,9 +152,9 @@
 | middle_name | text |  | Отчество |
 | nick | text |  | Никнейм |
 | bdate | date |  | Дата рождения |
-| email | text |  | E-mail адрес |
-| password_hash | text |  | Хеш пароля |
-| profession_fk | integer |  | FK на запись в таблице `profession` |
+| email | text | NOT NULL UNIQUE | E-mail адрес |
+| password_hash | text | NOT NULL | Хеш пароля |
+| profession_fk | integer | REFERENCES profession(idkart) | FK на запись в таблице `profession` |
 | pdb_data | jsonb |  | JSONB данных библиотеки PDB |
 | uuid_pdb | uuid |  | Общий UUID пользователя |
 | pdb_hash | text |  | Хэш данных библиотеки PDB |
@@ -162,16 +166,16 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| code | text | NOT NULL | Код |
+| code | text | NOT NULL UNIQUE | Код |
 | city | text |  | Город |
-| name | text | NOT NULL | Название |
+| name | text | NOT NULL UNIQUE | Название |
 | description | text |  | Описание |
-| email | text |  | E-mail |
+| email | text |  | Общий E-mail подразделения |
 
 ## Группы (group)
 
@@ -179,12 +183,12 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| division_fk | int | NOT NULL | FK на запись в таблице division |
+| division_fk | int | NOT NULL REFERENCES division(idkart) | FK на запись в таблице `division` |
 | name | text | NOT NULL | Название |
 | description | text |  | Описание |
 | user_fk | int | NOT NULL | Руководитель группы |
@@ -196,15 +200,15 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| division_fk | int | NOT NULL | FK на запись в таблице `division` |
-| group_fk | int |  | FK на запись в таблице `group` |
-| user_fk | int | NOT NULL | FK на запись в таблице `users` |
-| profession_fk | int | NOT NULL | Должность сотрудника |
+| division_fk | int | NOT NULL REFERENCES division(idkart) | FK на запись в таблице `division` |
+| group_fk | int | REFERENCES group(idkart) | FK на запись в таблице `group` |
+| user_fk | int | NOT NULL REFERENCES users(idkart) | FK на запись в таблице `users` |
+| profession_fk | int | NOT NULL REFERENCES profession(idkart) | Должность сотрудника |
 | work_email | text |  | Рабочий email |
 | email_signature | text |  | Подпись в email |
 | work_phone | text |  | Рабочий телефон |
@@ -215,17 +219,17 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| category_fk | integer | NOT NULL | FK на запись в таблице category |
+| category_fk | integer | NOT NULL REFERENCES category(idkart) | FK на запись в таблице `category` |
 | name | text | NOT NULL | Профессия |
 | description | text |  | Описание |
 | test_config | jsonb |  | Настройки теста |
 | is_public | boolean |  | Опубликовано ли |
-| state_fk | integer | NOT NULL | Статус |
+| state_fk | integer | NOT NULL REFERENCES state(idkart) | FK на запись в таблице `state` |
 | amount_for_attempt | integer | DEFAULT 10 | Min кол-во вопросов для прохождения |
 
 ## Вопросы (question)
@@ -235,13 +239,13 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| test_fk | integer | NOT NULL | FK на ID теста |
-| question_type_fk | integer | NOT NULL | FK на ID типа вопроса |
+| test_fk | integer | NOT NULL REFERENCES test(idkart) | FK на ID теста |
+| question_type_fk | integer | NOT NULL REFERENCES question_type(idkart) | FK на ID типа вопроса |
 | question | text | NOT NULL | Текст вопроса |
 | image_id | jsonb |  | ID файла изображения |
 | description | text |  | Описание |
@@ -253,12 +257,12 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| question_fk | integer | NOT NULL | FK на ID вопроса |
+| question_fk | integer | NOT NULL REFERENCES question(idkart) | FK на ID вопроса |
 | number | integer |  | № среди вариантов |
 | text_variant | text |  | Текст варианта |
 | image_id | jsonb |  | ID файла изображения |
@@ -270,14 +274,14 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| question_fk | integer | NOT NULL | FK на ID вопроса |
+| question_fk | integer | NOT NULL REFERENCES question(idkart) | FK на ID вопроса |
 | text_value | text |  | Текст варианта |
-| variant_fk | integer |  | FK на ID варианта |
+| variant_fk | integer | NOT NULL REFERENCES variant(idkart) | FK на ID варианта |
 
 ## Попытки (attempt)
 
@@ -285,13 +289,13 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
 | finished_at | timestamptz |  | Момент завершения теста |
-| test_fk | integer | NOT NULL | FK на запись в таблице `test` |
+| test_fk | integer | NOT NULL REFERENCES test(idkart) | FK на запись в таблице `test` |
 | test_questions_amount | smallint | NOT NULL DEFAULT 10 | Кол-во вопросов в тесте |
 | right_answers_amount | smallint | NOT NULL DEFAULT 0 | Кол-во правильных ответов на вопросы |
 
@@ -301,13 +305,13 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| attempt_fk | integer | NOT NULL | FK на запись в таблице `attempt` |
-| question_fk | integer | NOT NULL | FK на запись в таблице `question` |
+| attempt_fk | integer | NOT NULL REFERENCES atempt(idkart) | FK на запись в таблице `attempt` |
+| question_fk | integer | NOT NULL REFERENCES question(idkart) | FK на запись в таблице `question` |
 | user_answer | jsonb |  | Ответ пользователя |
 | is_right | boolean | DEFAULT false | Правильный ли ответ |
 
@@ -320,20 +324,20 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| grade_fk | integer |  | FK на запись в таблице grade |
-| role_fk | integer |  | FK на запись в таблице role |
+| grade_fk | integer | REFERENCES grade(idkart) | FK на запись в таблице `grade` |
+| role_fk | integer | REFERENCES role(idkart) | FK на запись в таблице `role` |
 | code | text | NOT NULL | Буквенно-цифровой код экзамена |
 | name | text | NOT NULL | Название экзамена |
 | description | text |  | Описание |
 | test_list | integer[] |  | Список ID тестов |
-| result | smallint | NOT NULL | Значение в % для успеха прохождения |
+| result | smallint | NOT NULL DEFAULT 100 | Значение в % для успеха прохождения |
 | is_active | boolean | DEFAULT true | Действующий ли экзамен |
-| theme_fk | integer |  | FK на запись в таблице theme |
+| theme_fk | integer | REFERENCES theme(idkart) | FK на запись в таблице `theme` |
 | image_id | jsonb |  | ID файла бейджа за экзамен |
 
 ## Сессии (session)
@@ -342,18 +346,18 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| exam_fk | integer | NOT NULL | FK на запись в таблице `exam` |
-| mentee_fk | integer | NOT NULL | FK на запись в таблице `users` (кто проходит сессию) |
+| exam_fk | integer | NOT NULL REFERENCES exam(idkart) | FK на запись в таблице `exam` |
+| mentee_fk | integer | NOT NULL REFERENCES users(idkart) | FK на запись в таблице `users` (кто проходит сессию) |
 | date_start | date | NOT NULL | Дата начала сессии |
 | date_end | date | NOT NULL | Дата окончания сессии |
 | actual_result | smallint | NOT NULL DEFAULT 0 | Текущий результат пользователя |
 | is_completed | boolean | NOT NULL DEFAULT false | Выполнена ли сессия |
-| mentor_fk | integer |  | FK на запись в таблице `users` (наставник) |
+| mentor_fk | integer | REFERENCES users(idkart) | FK на запись в таблице `users` (наставник) |
 
 ## Группа конфигураций (config_group)
 
@@ -361,12 +365,12 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| name | text | NOT NULL | Название группы |
+| name | text | NOT NULL UNIQUE | Название группы |
 | description | text |  | Описание |
 
 ## Конфигурации (config)
@@ -375,12 +379,12 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | integer | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | dttmup | timestamptz | | ДатаВремя последнего обновления записи |
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
-| config_group_fk | integer |  | FK на запись в таблице `config_group` |
+| config_group_fk | integer | REFERENCES config_group(idkart) | FK на запись в таблице `config_group` |
 | key | text | NOT NULL | Название параметра |
 | value | text |  | Значение параметра |
 | description | text |  | Описание |
@@ -392,8 +396,8 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | bigint | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | bigserial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | idispl | integer | | ID создателя записи |
 | data_old | jsonb |  | JSONB-объект исходных данных |
 | action | text | NOT NULL | Действие с данными |
@@ -406,9 +410,9 @@
 
 | Поле | Тип | Ограничения | Назначение |
 | ------ | ------ | ------ | ------ |
-| idkart | bigint | | Идентификатор записи |
-| dttmcr | timestamptz | | ДатаВремя создания записи |
+| idkart | bigserial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
 | idispl | integer | | ID создателя записи |
-| log_id | bigint | NOT NULL | ID записи в таблице `log` |
+| log_id | bigint | NOT NULL REFERENCES log(idkart) | ID записи в таблице `log` |
 | data_old | jsonb |  | Предыдущее значение поля |
 | data_new | jsonb |  | Новое значение поля |
