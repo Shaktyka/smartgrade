@@ -160,6 +160,20 @@
 | pdb_hash | text |  | Хэш данных библиотеки PDB |
 | contract_data | jsonb |  | Данные соцсетей для аутентификации |
 
+## Города (city)
+
+Справочник городов.
+
+| Поле | Тип | Ограничения | Назначение |
+| ------ | ------ | ------ | ------ |
+| idkart | serial | NOT NULL | Идентификатор записи |
+| dttmcr | timestamptz | NOT NULL DEFAULT now() | ДатаВремя создания записи |
+| dttmup | timestamptz | | ДатаВремя последнего обновления записи |
+| dttmcl | timestamptz | | ДатаВремя закрытия записи |
+| idispl | integer | | ID создателя записи |
+| name | text | NOT NULL UNIQUE | Название |
+| description | text | | Описание |
+
 ## Подразделения (division)
 
 Список подразделений компании. Данные передаются с помощью репликации из базы CRM.
@@ -172,7 +186,7 @@
 | dttmcl | timestamptz | | ДатаВремя закрытия записи |
 | idispl | integer | | ID создателя записи |
 | code | text | NOT NULL UNIQUE | Код |
-| city | text |  | Город |
+| city_fk | integer | REFERENCES city(idkart) | FK на запись в таблице `city` |
 | name | text | NOT NULL UNIQUE | Название |
 | description | text |  | Описание |
 | email | text |  | Общий E-mail подразделения |
